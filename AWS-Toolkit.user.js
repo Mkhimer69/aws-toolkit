@@ -362,29 +362,82 @@
             })
         );
 
-        await wait(1000);
+await wait(1000);
 
-        const option =
-            [...document.querySelectorAll(
-                '[role="option"]'
-            )].find(o =>
-                o.textContent.trim() ===
-                profileName
-            );
+const searchBox =
+document.querySelector(
+    'input[role="combobox"]'
+);
 
-        if (!option) {
-            return toast('Profile not found');
-        }
+if(searchBox){
 
-        ['mousedown', 'mouseup', 'click']
-            .forEach(evt =>
-                option.dispatchEvent(
-                    new MouseEvent(evt, {
-                        bubbles: true,
-                        cancelable: true
-                    })
-                )
-            );
+    const setter =
+        Object.getOwnPropertyDescriptor(
+            HTMLInputElement.prototype,
+            'value'
+        ).set;
+
+    setter.call(
+        searchBox,
+        profileName
+    );
+
+    searchBox.dispatchEvent(
+        new Event('input',{
+            bubbles:true
+        })
+    );
+
+    await wait(1500);
+}
+
+const options =
+[...document.querySelectorAll(
+    '[role="option"]'
+)];
+
+console.log(
+    'Searching for:',
+    profileName
+);
+
+console.table(
+    options.map(x =>
+        x.textContent.trim()
+    )
+);
+
+const option =
+options.find(o =>
+    o.textContent
+        .trim()
+        .toLowerCase()
+        .includes(
+            profileName.toLowerCase()
+        )
+);
+
+if (!option) {
+
+    console.log(
+        'Profile not found:',
+        profileName
+    );
+
+    return toast(
+        profileName + ' not found'
+    );
+}
+
+['mousedown','mouseup','click']
+.forEach(evt =>
+    option.dispatchEvent(
+        new MouseEvent(evt,{
+            bubbles:true,
+            cancelable:true
+        })
+    )
+);
 
         await wait(1000);
 
