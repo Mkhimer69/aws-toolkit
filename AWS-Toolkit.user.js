@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AWS Toolkit
 // @namespace    https://github.com/Mkhimer69/aws-toolkit
-// @version      2.0
+// @version      2.1
 // @description  AWS Connect Productivity Toolkit
 // @author       Fathy Mkhimer
 // @match        https://lyft-support.my.connect.aws/users*
@@ -80,10 +80,22 @@
                     border-radius:8px;
                     padding:8px;">
 
-                    <option selected>Driver Chat Focus</option>
-                    <option>Driver Default Omnichannel</option>
-                    <option>Driver Email Focus</option>
-                    <option>Driver Voice Focus</option>
+                   <option selected>Driver Chat Focus</option>
+<option>Driver Default Omnichannel</option>
+<option>Driver Email Focus</option>
+<option>Driver Voice Focus</option>
+
+<option>Rider Chat Single Concurrency</option>
+<option>Rider Email</option>
+<option>Rider Omnichannel</option>
+
+<option>Safety Chat - Training</option>
+<option>Safety Email - Training</option>
+<option>Safety General</option>
+<option>Safety SMAA AST Sutherland</option>
+<option>Safety SMAA Sutherland</option>
+
+<option>Supervisor - Sutherland</option>
 
                 </select>
 
