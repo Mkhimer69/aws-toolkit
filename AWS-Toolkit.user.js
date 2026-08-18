@@ -364,8 +364,13 @@
 
 await wait(1000);
 
-const searchBox =
+const dialog =
 document.querySelector(
+    '[role="dialog"]'
+);
+
+const searchBox =
+dialog?.querySelector(
     'input[role="combobox"]'
 );
 
