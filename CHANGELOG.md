@@ -2,7 +2,23 @@
 
 All notable changes to AWS Toolkit will be documented in this file.
 
----
+## v2.1
+
+### Added
+
+- Rider Chat Single Concurrency
+- Rider Email
+- Rider Omnichannel
+- Safety Chat - Training
+- Safety Email - Training
+- Safety General
+- Safety SMAA AST Sutherland
+- Safety SMAA Sutherland
+- Supervisor - Sutherland
+
+### Improved
+
+- Expanded Routing Profile Library
 
 ## v2.0
 
