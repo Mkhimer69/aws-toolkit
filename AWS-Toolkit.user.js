@@ -2,7 +2,7 @@
 // @name         AWS Toolkit
 // @namespace    https://github.com/Mkhimer69/aws-toolkit
 // @version      2.1
-// @description  AWS Connect Productivity Toolkit
+// @description  A productivity toolkit built for Amazon Connect user administration workflows.
 // @author       Fathy Mkhimer
 // @match        https://lyft-support.my.connect.aws/users*
 // @downloadURL  https://raw.githubusercontent.com/Mkhimer69/aws-toolkit/main/AWS-Toolkit.user.js
