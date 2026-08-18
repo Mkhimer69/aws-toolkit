@@ -37,19 +37,7 @@ Apply routing profiles with a single click:
 
 ## 📸 Preview
 
-Add screenshots to the `screenshots` folder and reference them here.
-
-```text
-screenshots/
-└── aws-toolkit-v2.png
-```
-
-Example:
-
-```markdown
-screenshots/aws-toolkit-v2.png
-```
-
+![AWS](https://raw.githubusercontent.com/Mkhimer69/aws-toolkit/refs/heads/main/screenshots/aws-toolkit-v2.png)
 ---
 
 ## 🛠 Technologies
