@@ -361,56 +361,54 @@
                 cancelable: true
             })
         );
-
 await wait(1000);
 
-const dialog =
-document.querySelector(
-    '[role="dialog"]'
-);
+const boxes =
+[...document.querySelectorAll(
+    'input[role="combobox"]'
+)];
 
 const searchBox =
-dialog?.querySelector(
-    'input[role="combobox"]'
+    boxes[boxes.length - 1];
+
+if(!searchBox){
+
+    return toast(
+        'Routing profile search not found'
+    );
+}
+
+searchBox.focus();
+
+const setter =
+Object.getOwnPropertyDescriptor(
+    HTMLInputElement.prototype,
+    'value'
+).set;
+
+setter.call(
+    searchBox,
+    profileName
 );
 
-if(searchBox){
+searchBox.dispatchEvent(
+    new Event('input',{
+        bubbles:true
+    })
+);
 
-    const setter =
-        Object.getOwnPropertyDescriptor(
-            HTMLInputElement.prototype,
-            'value'
-        ).set;
+searchBox.dispatchEvent(
+    new Event('change',{
+        bubbles:true
+    })
+);
 
-    setter.call(
-        searchBox,
-        profileName
-    );
-
-    searchBox.dispatchEvent(
-        new Event('input',{
-            bubbles:true
-        })
-    );
-
-    await wait(1500);
-}
+await wait(1500);
 
 const options =
 [...document.querySelectorAll(
     '[role="option"]'
 )];
-
-console.log(
-    'Searching for:',
-    profileName
-);
-
-console.table(
-    options.map(x =>
-        x.textContent.trim()
-    )
-);
 
 const option =
 options.find(o =>
@@ -422,11 +420,12 @@ options.find(o =>
         )
 );
 
-if (!option) {
+if(!option){
 
-    console.log(
-        'Profile not found:',
-        profileName
+    console.table(
+        options.map(x =>
+            x.textContent.trim()
+        )
     );
 
     return toast(
