@@ -52,9 +52,12 @@ Apply routing profiles with a single click:
 
 ## 🚀 Installation
 
-### 1. Install Tampermonkey
+### 1. Install Tampermonkey Extension
 
 https://www.tampermonkey.net/
+
+See:
+- screenshots/install-tampermonkey.mp4
 
 ### 2. Install AWS Toolkit
 
@@ -63,6 +66,9 @@ Open:
 https://raw.githubusercontent.com/Mkhimer69/aws-toolkit/main/AWS-Toolkit.user.js
 
 Tampermonkey will detect the userscript automatically.
+
+![AWS](https://github.com/Mkhimer69/aws-toolkit/blob/main/screenshots/install%20AWS%20toolkit.gif?raw=true)
+
 
 ### 3. Install
 
@@ -73,7 +79,18 @@ Click **Install**.
 The toolkit will load automatically.
 
 ---
+## 🎥 Video Guides
 
+### Install Tampermonkey
+
+See:
+- screenshots/install-tampermonkey.mp4
+
+### AWS Toolkit Demo
+
+See:
+- screenshots/aws-toolkit-demo.mp4
+  
 ## 🔄 Updates
 
 AWS Toolkit supports automatic updates through Tampermonkey.
