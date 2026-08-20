@@ -3,32 +3,6 @@
 All notable changes to AWS Toolkit will be documented in this file.
 
 ---
-## v2.3
-
-### Added
-
-- Bulk email list parsing from clipboard content
-- Automatic extraction of valid email addresses from copied text
-- Duplicate email prevention during imports
-- Progress bar for bulk operations
-- Real-time progress tracking during Select and Deselect actions
-- Completion desktop notifications
-- Improved status updates during automation tasks
-
-### Improved
-
-- Clipboard processing workflow
-- Bulk user management experience
-- User feedback during long-running operations
-- Automation visibility through progress tracking
-
-### Fixed
-
-- Duplicate email storage handling
-- Bulk processing status consistency
-- Long-running task visibility
-
-
 ## v2.2
 
 ### Added
