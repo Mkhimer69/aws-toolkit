@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AWS Toolkit
 // @namespace    https://github.com/Mkhimer69/aws-toolkit
-// @version      2.3
+// @version      2.2
 // @description  A productivity toolkit built for Amazon Connect user administration workflows.
 // @author       Fathy Mkhimer
 // @match        https://lyft-support.my.connect.aws/users*
@@ -45,31 +45,12 @@
 
   p.innerHTML = `
     <div id="ath" style="padding:12px; background:linear-gradient(90deg,#0078d4,#0a84ff); border-radius:12px 12px 0 0; cursor:move; display:flex; justify-content:space-between; font-weight:600; font-size:13px; user-select:none;">
-        <span>🚀 AWS Toolkit v3 </span>
+        <span>🚀 AWS Toolkit v2</span>
         <span id="att" style="cursor:pointer; padding:0 4px;">−</span>
     </div>
     <div id="atb" style="padding:14px; display:flex; flex-direction:column; gap:10px;">
         <div id="atc" style="font-size:13px; color:#cbd5e1;"></div>
         <div id="ats" style="padding:8px; background:#111827; border-radius:8px; color:#8ab4f8; text-align:center; font-weight:600; font-size:13px;">Ready</div>
-
-        <div style="background: #22272e; padding: 10px; border-radius: 8px; border: 1px solid #444; display: flex; flex-direction: column; gap: 6px;">
-            <div id="toggleBridgeHeader" style="display:flex; justify-content:space-between; align-items:center; cursor:pointer; user-select:none;">
-                <span style="font-size: 11px; color: #4ade80; font-weight: bold; text-transform: uppercase;">⚡ Live Bridge Picker <span id="bridgeArrow">▼</span></span>
-                <span id="lastRefreshed" style="font-size: 10px; color: #8b949e;">Sync: None</span>
-            </div>
-
-            <div id="bridgeBody" style="display: flex; flex-direction: column; gap: 6px;">
-                <div style="display: flex; gap: 6px; align-items: center; margin-top: 4px;">
-                    <span style="font-size:12px; color:#fff;">Pick</span>
-                    <input id="pickCount" type="number" value="5" min="1" style="width: 45px; background: #111827; color: white; border: 1px solid #444; border-radius: 4px; padding: 4px; text-align: center; font-size: 12px;">
-                    <span style="font-size:12px; color:#fff;">random agents from:</span>
-                </div>
-                <select id="sourceProfile" style="width:100%; background:#111827; color:#fff; border:1px solid #444; border-radius:6px; padding:6px; font-size:12px;">
-                    <option value="" disabled selected>Loading active profiles...</option>
-                </select>
-                <button id="autoInject" style="width:100%; background:#22c55e; color:white; border:none; border-radius:6px; padding:6px; font-weight:600; font-size:12px; cursor:pointer;">⚡ Inject into Tool Stash</button>
-            </div>
-        </div>
 
         <div id="progContainer" style="width:100%; background:#2d333b; height:6px; border-radius:3px; overflow:hidden; display:none;">
             <div id="progBar" style="width:0%; height:100%; background:#4ade80; transition:width 0.3s ease;"></div>
@@ -97,7 +78,6 @@
   document.body.appendChild(p);
 
   p.querySelectorAll('button').forEach(btn => {
-    if(btn.id === 'autoInject') return;
     const isApply = btn.id === 'applyrp';
     Object.assign(btn.style, {
       background: isApply ? '#0a84ff' : '#2d333b', color: '#fff', border: isApply ? 'none' : '1px solid #444',
@@ -115,114 +95,35 @@
   const pContainer = document.getElementById('progContainer');
   const pBar = document.getElementById('progBar');
 
-  document.getElementById('toggleBridgeHeader').onclick = () => {
-    const bBody = document.getElementById('bridgeBody');
-    const bArrow = document.getElementById('bridgeArrow');
-    if (bBody.style.display === 'none') {
-      bBody.style.display = 'flex';
-      bArrow.textContent = '▼';
-    } else {
-      bBody.style.display = 'none';
-      bArrow.textContent = '▲';
-    }
-  };
-
-  const syncDynamicProfiles = () => {
-    try {
-      const payload = JSON.parse(localStorage.sharedMagicMonitorData || '{}');
-      const rows = payload.rows || [];
-      const syncTime = payload.time || 'None';
-
-      const selectEl = document.getElementById('sourceProfile');
-      const timeEl = document.getElementById('lastRefreshed');
-
-      if (!rows.length) {
-        selectEl.innerHTML = '<option value="" disabled selected>❌ No live data found</option>';
-        timeEl.textContent = 'Sync: None';
-        return;
-      }
-
-      timeEl.textContent = `Sync: ${syncTime}`;
-
-      const uniqueProfiles = [...new Set(rows.map(r => r.profile).filter(Boolean))].sort();
-      const currentSelected = selectEl.value;
-
-      selectEl.innerHTML = uniqueProfiles.map(prof =>
-        `<option value="${prof}" ${prof === currentSelected ? 'selected' : ''}>${prof}</option>`
-      ).join('');
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  syncDynamicProfiles();
-  setInterval(syncDynamicProfiles, 2000);
-
-  document.getElementById('autoInject').onclick = () => {
-    const payload = JSON.parse(localStorage.sharedMagicMonitorData || '{}');
-    const sourceData = payload.rows || [];
-
-    if (!sourceData.length) {
-      return toast('⚠️ No active live data found! Please check Magic Monitor.');
-    }
-
-    const targetProfile = document.getElementById('sourceProfile').value;
-    const countToPick = parseInt(document.getElementById('pickCount').value) || 5;
-
-    if(!targetProfile) return toast('Please select a valid routing profile');
-
-    const validAgents = sourceData.filter(agent =>
-      agent.profile === targetProfile && agent.email
-    );
-
-    if (!validAgents.length) {
-      return toast(`No active agents found in profile: ${targetProfile}`);
-    }
-
-    const shuffled = [...validAgents];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-
-    const selectedAgents = shuffled.slice(0, countToPick);
-    const currentStoredList = get();
-
-    let newCount = 0;
-    selectedAgents.forEach(agent => {
-      const cleanEmail = agent.email.toLowerCase().trim();
-      if (!currentStoredList.includes(cleanEmail)) {
-        currentStoredList.push(cleanEmail);
-        newCount++;
-      }
-    });
-
-    localStorage.awsUserCollector = JSON.stringify(currentStoredList);
-    upd();
-
-    if (l.style.display === 'block') {
-      l.innerHTML = currentStoredList.join('<br>');
-    }
-
-    toast(`✅ Injected ${newCount} random agents from ${targetProfile}!`);
-  };
-
   document.getElementById('add').onclick = async () => {
     try {
       const text = (await navigator.clipboard.readText()).trim();
       const found = text.match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/gi) || [];
+
       if (!found.length) return toast('No valid email found');
+
       const arr = get();
       let addedCount = 0;
+
       found.forEach(email => {
         const cleanEmail = email.toLowerCase().trim();
-        if (!arr.includes(cleanEmail)) { arr.push(cleanEmail); addedCount++; }
+        if (!arr.includes(cleanEmail)) {
+          arr.push(cleanEmail);
+          addedCount++;
+        }
       });
+
       localStorage.awsUserCollector = JSON.stringify(arr);
       upd();
 
-      if (found.length === 1) toast('Saved'); else toast(`Added ${addedCount} emails!`);
-    } catch { toast('Clipboard access failed'); }
+      if (found.length === 1) {
+        toast('Saved');
+      } else {
+        toast(`Added ${addedCount} emails from list!`);
+      }
+    } catch {
+      toast('Clipboard access failed');
+    }
   };
 
   document.getElementById('show').onclick = () => {
