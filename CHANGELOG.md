@@ -3,7 +3,30 @@
 All notable changes to AWS Toolkit will be documented in this file.
 
 ---
+## v3.0 Beta - Live Bridge
 
+### Added
+
+- Live Bridge framework
+- Real-time Analytics Dashboard integration
+- Dynamic routing profile detection
+- Random active agent selection
+- One-click agent injection
+- Cross-page synchronization via local storage
+- Live sync status indicators
+- Analytics Dashboard companion panel
+
+### Improved
+
+- Routing profile reassignment workflow
+- Workforce management efficiency
+- Agent selection process
+
+### Known Limitations
+
+- Feature is currently in beta testing
+- UI and workflow may change before final release
+  
 ## v2.2
 
 ### Added
