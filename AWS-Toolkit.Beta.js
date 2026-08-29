@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         AWS Toolkit
+// @name         AWS Toolkit Beta
 // @namespace    https://github.com/Mkhimer69/aws-toolkit
 // @version      3.0
 // @description  A productivity toolkit built for Amazon Connect user administration workflows.
