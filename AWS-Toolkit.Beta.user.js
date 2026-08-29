@@ -306,76 +306,113 @@
       upd(); l.innerHTML = ''; pBar.style.width = '0%'; pContainer.style.display = 'none'; toast('Cleared');
     };
 
-    async function run(mode) {
-      const emails = get().map(x => x.trim().toLowerCase());
-      if (!emails.length) return toast('No emails');
-      const search = document.querySelector('input[placeholder="Search users"]');
-      if (!search) return toast('Search box not found');
+async function run(mode) {
+  const emails = get().map(x => x.trim().toLowerCase());
+  if (!emails.length) return toast('No emails');
 
-      pContainer.style.display = 'block'; pBar.style.width = '0%';
-      const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set;
+  const search = document.querySelector('input[placeholder="Search users"]');
+  if (!search) return toast('Search box not found');
 
-      for (let i = 0; i < emails.length; i++) {
-        s.textContent = `${mode === 's' ? 'Selecting' : 'Deselecting'} ${i + 1}/${emails.length}`;
-        pBar.style.width = `${((i + 1) / emails.length) * 100}%`;
-        setter.call(search, emails[i]);
-        search.dispatchEvent(new Event('input', { bubbles: true }));
-        await wait(3000);
-        const cb = [...document.querySelectorAll('input[type="checkbox"]')].find(x =>
-          (x.getAttribute('aria-label') || '').toLowerCase().includes(emails[i])
-        );
-        if (cb) {
-          if (mode === 's' && !cb.checked) cb.click();
-          if (mode === 'd' && cb.checked) cb.click();
-        }
-      }
-      setter.call(search, ''); search.dispatchEvent(new Event('input', { bubbles: true }));
-      s.textContent = 'Done';
-      notifyMe('AWS Toolkit Completed', `Processed ${emails.length} agents.`);
-      setTimeout(() => { pContainer.style.display = 'none'; }, 2000);
+  pContainer.style.display = 'block';
+  pBar.style.width = '0%';
+
+  const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set;
+
+  const findCheckbox = async (email, t = 3000) => {
+    const start = Date.now();
+    while (Date.now() - start < t) {
+      const cb = [...document.querySelectorAll('input[type="checkbox"]')]
+        .find(x => (x.getAttribute('aria-label') || '').toLowerCase().includes(email));
+      if (cb) return cb;
+      await wait(100);
     }
+  };
+
+  for (const [i, email] of emails.entries()) {
+    s.textContent = `${mode === 's' ? 'Selecting' : 'Deselecting'} ${i + 1}/${emails.length}`;
+    pBar.style.width = `${((i + 1) / emails.length) * 100}%`;
+
+    setter.call(search, email);
+    search.dispatchEvent(new Event('input', { bubbles: true }));
+
+    const cb = await findCheckbox(email);
+
+    if (cb && ((mode === 's' && !cb.checked) || (mode === 'd' && cb.checked)))
+      cb.click();
+  }
+
+  setter.call(search, '');
+  search.dispatchEvent(new Event('input', { bubbles: true }));
+
+  s.textContent = 'Done';
+
+  notifyMe(
+    'AWS Toolkit Task Completed',
+    `Successfully processed ${emails.length} agents.`
+  );
+
+  setTimeout(() => {
+    pContainer.style.display = 'none';
+  }, 2000);
+}
 
     async function applyRoutingProfile(profileName) {
-      s.textContent = 'Applying ' + profileName + '...';
-      document.querySelectorAll('button[aria-haspopup="true"]')[1]?.click();
-      await wait(800);
-      [...document.querySelectorAll('li')].find(li => li.innerText.trim() === 'Routing profile')?.click();
-      await wait(1500);
+  s.textContent = `Applying ${profileName}...`;
 
-      const picker = [...document.querySelectorAll('button[aria-haspopup="dialog"]')].find(b =>
-        b.textContent.includes('Search routing profiles')
-      );
-      picker?.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }));
-      await wait(1000);
-
-      const boxes = [...document.querySelectorAll('input[role="combobox"]')];
-      const searchBox = boxes[boxes.length - 1];
-      if(!searchBox){ return toast('Routing profile search not found'); }
-
-      searchBox.focus();
-      const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set;
-      setter.call(searchBox, profileName);
-      searchBox.dispatchEvent(new Event('input', { bubbles: true }));
-      searchBox.dispatchEvent(new Event('change', { bubbles: true }));
-      await wait(1500);
-
-      const options = [...document.querySelectorAll('[role="option"]')];
-      const option = options.find(o => o.textContent.trim().toLowerCase().includes(profileName.toLowerCase()));
-      if(!option){
-        console.table(options.map(x => x.textContent.trim()));
-        return toast(profileName + ' not found');
-      }
-
-      ['mousedown', 'mouseup', 'click'].forEach(evt =>
-        option.dispatchEvent(new MouseEvent(evt, { bubbles: true, cancelable: true }))
-      );
-      await wait(1000);
-      document.querySelector('[data-testid="edit-routing-profile-submit-button"]')?.click();
-      s.textContent = '✅ Applied';
-      toast(profileName + ' Applied');
-
-      notifyMe('Profile Applied Successfully', `Routing Profile: ${profileName}`);
+  const waitFor = async (fn, t = 3000) => {
+    const start = Date.now();
+    while (Date.now() - start < t) {
+      if (fn()) return fn();
+      await wait(100);
     }
+  };
+
+  document.querySelectorAll('button[aria-haspopup="true"]')[1]?.click();
+
+  const rpMenu = await waitFor(() =>
+    [...document.querySelectorAll('li')]
+      .find(li => li.innerText.trim() === 'Routing profile')
+  );
+  rpMenu?.click();
+
+  const picker = await waitFor(() =>
+    [...document.querySelectorAll('button[aria-haspopup="dialog"]')]
+      .find(b => b.textContent.includes('Search routing profiles'))
+  );
+
+  picker?.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }));
+
+  await waitFor(() => document.querySelector('input[role="combobox"]'));
+
+  const searchBox = [...document.querySelectorAll('input[role="combobox"]')].at(-1);
+  if (!searchBox) return toast('Routing profile search not found');
+
+  const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set;
+  searchBox.focus();
+  setter.call(searchBox, profileName);
+  searchBox.dispatchEvent(new Event('input', { bubbles: true }));
+  searchBox.dispatchEvent(new Event('change', { bubbles: true }));
+
+  const option = await waitFor(() =>
+    [...document.querySelectorAll('[role="option"]')]
+      .find(o => o.textContent.trim().toLowerCase().includes(profileName.toLowerCase()))
+  );
+
+  if (!option) return toast(`${profileName} not found`);
+
+  ['mousedown', 'mouseup', 'click'].forEach(e =>
+    option.dispatchEvent(new MouseEvent(e, { bubbles: true, cancelable: true }))
+  );
+
+  await wait(1000);
+
+  document.querySelector('[data-testid="edit-routing-profile-submit-button"]')?.click();
+
+  s.textContent = '✅ Applied';
+  toast(`${profileName} Applied`);
+  notifyMe('Profile Applied Successfully', `Routing Profile: ${profileName}`);
+}
+
 
     document.getElementById('sel').onclick = () => run('s');
     document.getElementById('des').onclick = () => run('d');
@@ -408,4 +445,6 @@
     };
   }
 })();
+
+
 
