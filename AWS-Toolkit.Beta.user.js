@@ -5,6 +5,7 @@
 // @description  A productivity toolkit built for Amazon Connect user administration workflows.
 // @author       Fathy Mkhimer
 // @match        https://lyft-support.my.connect.aws/users*
+// @match        https://lyft-support.my.connect.aws/analytics-dashboards*
 // @downloadURL  https://raw.githubusercontent.com/Mkhimer69/aws-toolkit/main/AWS-Toolkit.user.js
 // @updateURL    https://raw.githubusercontent.com/Mkhimer69/aws-toolkit/main/AWS-Toolkit.user.js
 // @grant        none
