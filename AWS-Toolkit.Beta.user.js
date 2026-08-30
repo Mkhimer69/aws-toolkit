@@ -10,6 +10,7 @@
 // @updateURL    https://raw.githubusercontent.com/Mkhimer69/aws-toolkit/main/AWS-Toolkit.user.js
 // @grant        none
 // ==/UserScript==
+
 (function () {
   'use strict';
 
@@ -169,10 +170,10 @@
                   <option>Driver Email Focus</option><option>Driver Voice Focus</option>
                   <option>Rider Chat Single Concurrency</option><option>Rider Email</option>
                   <option>Rider Omnichannel</option><option>Safety Chat - Training</option>
-                  <option>Safety Email - Training</option><option>Safety General</option>
-                  <option>Safety SMAA AST Sutherland</option><option>Safety SMAA Sutherland</option>
-                  <option>Supervisor - Sutherland</option>
-              </select>
+                <option>Safety Email - Training</option><option>Safety General</option>
+                <option>Safety SMAA AST Sutherland</option><option>Safety SMAA Sutherland</option>
+                <option>Supervisor - Sutherland</option><option>Driver Nesting - Chat</option><option>Driver Nesting - Email</option>
+            </select>
               <button id="applyrp" style="grid-column:1/3; background:#0a84ff; color:white; border:none; border-radius:8px; padding:10px; font-weight:600; font-size:13px;">🚀 Apply Profile</button>
               <button id="clr" style="grid-column:1/3;">🧹 Clear</button>
           </div>
