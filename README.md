@@ -37,7 +37,6 @@ Apply routing profiles with a single click:
 
 ## 📸 Preview
 
-![AWS](https://raw.githubusercontent.com/Mkhimer69/aws-toolkit/refs/heads/main/screenshots/aws-toolkit-v2.png)
 ---
 
 ## 🛠 Technologies
@@ -95,9 +94,6 @@ See:
 
 See:
 - screenshots/live-bridge-demo.mp4
-<video src="https://github.com/Mkhimer69/aws-toolkit/raw/refs/heads/main/screenshots/live-bridge-demo.mp4" controls="controls" muted="muted" style="max-width: 100%; height: auto;">
-</video>
-
   
 ## 🔄 Updates
 
