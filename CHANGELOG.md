@@ -3,7 +3,7 @@
 All notable changes to AWS Toolkit will be documented in this file.
 
 ---
-## v3.0 Beta - Live Bridge
+## v3.0
 
 ### Added
 
@@ -22,10 +22,6 @@ All notable changes to AWS Toolkit will be documented in this file.
 - Workforce management efficiency
 - Agent selection process
 
-### Known Limitations
-
-- Feature is currently in beta testing
-- UI and workflow may change before final release
   
 ## v2.2
 
