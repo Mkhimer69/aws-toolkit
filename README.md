@@ -95,7 +95,7 @@ See:
 
 See:
 - screenshots/live-bridge-demo.mp4
-<video src="https://github.com/Mkhimer69/aws-toolkit/blob/main/screenshots/live-bridge-demo.mp4" controls="controls" muted="muted" style="max-width: 100%; height: auto;">
+<video src="https://github.com/Mkhimer69/aws-toolkit/raw/refs/heads/main/screenshots/live-bridge-demo.mp4" controls="controls" muted="muted" style="max-width: 100%; height: auto;">
 </video>
 
   
