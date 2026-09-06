@@ -112,7 +112,30 @@ When a new version is published:
 - Contact center administration
 
 ---
+## 🆕 What's New in Version 3.0
 
+### ⚡ Live Bridge System
+Added a real-time bridge between the Amazon Connect Analytics Dashboard and User Administration pages, enabling seamless data sharing between both environments.
+
+### 🎲 Random Agent Injection
+Select a routing profile and automatically inject a specified number of randomly selected agents directly into the toolkit's user stash for bulk actions.
+
+### 📡 Analytics Synchronization
+Agent data is automatically synchronized between AWS pages without the need for manual exports, imports, or copy-paste operations.
+
+### 📊 Progress Tracking
+Introduced visual progress bars and live status updates for bulk user selection and management tasks.
+
+### 🔔 Desktop Notifications
+Receive browser notifications when long-running operations complete, allowing you to continue working without monitoring the toolkit.
+
+### 🚀 Performance Improvements
+Optimized bulk selection and deselection workflows to reduce delays and improve responsiveness across large user lists.
+
+### 🎨 UI Enhancements
+Enhanced the toolkit interface with better status indicators, synchronization timestamps, and an improved Live Bridge Picker experience.
+
+---
 ## 👨‍💻 Author
 
 **Fathy Mkhimer**
