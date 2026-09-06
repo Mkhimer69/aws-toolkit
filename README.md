@@ -90,6 +90,11 @@ See:
 
 See:
 - screenshots/aws-toolkit-demo.mp4
+
+### AWS Toolkit V3 Live bridge
+
+See:
+- screenshots/live-bridge-demo.mp4
   
 ## 🔄 Updates
 
@@ -113,6 +118,8 @@ When a new version is published:
 
 ---
 ## 🆕 What's New in Version 3.0
+
+
 
 ### ⚡ Live Bridge System
 Added a real-time bridge between the Amazon Connect Analytics Dashboard and User Administration pages, enabling seamless data sharing between both environments.
