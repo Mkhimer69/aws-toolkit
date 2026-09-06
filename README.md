@@ -6,6 +6,9 @@ AWS Toolkit streamlines repetitive user-management tasks by providing bulk actio
 
 ---
 
+[▶ Watch Demo](https://github.comtoolkit/blob/main/screenshots/live-bridge-demo.mp4
+https://github.com/Mkhimer69/aws-toolkit/blob/main/screenshots/live-bridge-demo.mp4
+
 ## ✨ Features
 
 ### User Management
