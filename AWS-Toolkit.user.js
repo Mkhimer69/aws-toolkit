@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AWS Toolkit
 // @namespace    https://github.com/Mkhimer69/aws-toolkit
-// @version      3.1
+// @version      3.0
 // @description  A productivity toolkit built for Amazon Connect user administration workflows.
 // @author       Fathy Mkhimer
 // @match        https://lyft-support.my.connect.aws/users*
