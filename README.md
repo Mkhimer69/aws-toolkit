@@ -37,6 +37,8 @@ Apply routing profiles with a single click:
 
 ## 📸 Preview
 
+![smart-search](https://github.com/Mkhimer69/aws-toolkit/blob/main/screenshots/aws-toolkit-v3.png?raw=true)
+
 ---
 
 ## 🛠 Technologies
