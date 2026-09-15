@@ -13,7 +13,7 @@
 // @connect      script.google.com
 // @connect      script.googleusercontent.com
 // ==/UserScript==
-const TOKEN='my-secret-team-token';
+const TOKEN='my-super-secret-token';
 const email=
 document.querySelector('[data-testid="user-settings-dropdown"]')
 ?.getAttribute('aria-label')
