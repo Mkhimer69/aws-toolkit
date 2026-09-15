@@ -14,8 +14,11 @@
 // @connect      script.googleusercontent.com
 // ==/UserScript==
 const TOKEN='my-secret-team-token';
-const email=document.querySelector('[data-testid="user-settings-dropdown"]')
- ?.title?.replace(' User settings','')||'unknown';
+const email=
+document.querySelector('[data-testid="user-settings-dropdown"]')
+?.getAttribute('aria-label')
+?.replace(/\s*User settings$/,'')
+||'unknown';
 
 GM_xmlhttpRequest({
   method:'GET',
