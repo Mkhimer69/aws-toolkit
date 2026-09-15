@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AWS Toolkit
 // @namespace    https://github.com/Mkhimer69/aws-toolkit
-// @version      3.2
+// @version      3.3
 // @description  A productivity toolkit built for Amazon Connect user administration workflows.
 // @author       Fathy Mkhimer
 // @match        https://lyft-support.my.connect.aws/users*
@@ -14,8 +14,7 @@
 // @connect      script.googleusercontent.com
 // ==/UserScript==
 const TOKEN='my-super-secret-token';
-const email=
-document.querySelector('[data-testid="user-settings-dropdown"]')
+const email=document.querySelector('[data-testid="user-settings-dropdown"]')
 ?.getAttribute('aria-label')
 ?.replace(/\s*User settings$/,'')
 ||'unknown';
